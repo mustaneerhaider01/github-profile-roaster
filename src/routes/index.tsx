@@ -100,12 +100,12 @@ const roastProfile = createServerFn({ method: 'POST' })
 
 function App() {
   const [githubUrl, setGithubUrl] = useState<string>('')
-  const [loading, setLoading] = useState<boolean>(false)
+  const [isLoading, setIsLoading] = useState<boolean>(false)
   const [error, setError] = useState<string | null>(null)
   const [roast, setRoast] = useState<string>()
 
   const handleRoast = async () => {
-    setLoading(true)
+    setIsLoading(true)
     setError('')
     setRoast('')
 
@@ -131,7 +131,7 @@ function App() {
     } catch (err) {
       setError((err as Error).message)
     } finally {
-      setLoading(false)
+      setIsLoading(false)
     }
   }
 
@@ -150,19 +150,19 @@ function App() {
               value={githubUrl}
               onChange={(e) => setGithubUrl(e.target.value)}
               className="flex-1 px-4 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent disabled:opacity-50 disabled:pointer-events-none"
-              disabled={loading}
+              disabled={isLoading}
             />
             <button
               onClick={handleRoast}
-              disabled={loading || !githubUrl}
+              disabled={isLoading || !githubUrl}
               className={`px-6 py-2 rounded-lg font-medium text-white transition-colors duration-150
               ${
-                loading || !githubUrl
+                isLoading || !githubUrl
                   ? 'bg-sky-300 cursor-not-allowed'
                   : 'bg-sky-600 hover:bg-sky-700'
               }`}
             >
-              {loading ? (
+              {isLoading ? (
                 <div className="flex items-center">
                   <Loader2Icon className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" />
                   Roasting...
