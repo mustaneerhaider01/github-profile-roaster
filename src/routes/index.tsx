@@ -93,7 +93,9 @@ const roastProfile = createServerFn({ method: 'POST' })
       const roast = response.text
 
       return roast
-    } catch (error) {}
+    } catch (error: any) {
+      throw new Error(error.message ?? 'Failed to generate roast')
+    }
   })
 
 function App() {
