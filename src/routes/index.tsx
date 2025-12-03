@@ -104,7 +104,9 @@ function App() {
   const [error, setError] = useState<string | null>(null)
   const [roast, setRoast] = useState<string>()
 
-  const handleRoast = async () => {
+  const handleRoast = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+
     setIsLoading(true)
     setError('')
     setRoast('')
@@ -143,7 +145,7 @@ function App() {
         </h1>
 
         <div className="space-y-6">
-          <div className="flex space-x-2">
+          <form onSubmit={handleRoast} className="flex space-x-2">
             <input
               type="text"
               placeholder="Enter GitHub profile URL or username"
@@ -153,7 +155,7 @@ function App() {
               disabled={isLoading}
             />
             <button
-              onClick={handleRoast}
+              type="submit"
               disabled={isLoading || !githubUrl}
               className={`px-6 py-2 rounded-lg font-medium text-white transition-colors duration-150
               ${
@@ -171,7 +173,7 @@ function App() {
                 'Roast!'
               )}
             </button>
-          </div>
+          </form>
 
           {error && (
             <div className="p-4 bg-red-50 text-red-600 rounded-lg border border-red-200">
